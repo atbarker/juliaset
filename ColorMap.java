@@ -113,13 +113,4 @@ public class ColorMap
 
         return s.toString();
     }
-
-    public static void main(String[] args)
-    {
-        ColorMap jet = getJet();
-        ColorMap jet128 = getJet(128);
-
-        
-        System.out.println("Jet:\n"+jet+"\n\nJet128:\n"+jet128);
-    }
 }
