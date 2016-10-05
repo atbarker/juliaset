@@ -66,15 +66,15 @@ public class Julia{
     //hsb color output
     public static int getHSBColor(int idx, ColorMap colors)
     {
+    	//old way to generate image with HSB values, hard to use and get a well defined image
         //return Color.getHSBColor((float)(idx%256/256.0), 1.0f, 1.0f).getRGB();//gets a TYPE_INT_RGB value from the number of iterations
-        //double value = (double)(idx/256.0);
-	//double rgb = colors.getColor(value);
-	//return rgb.getRGB();
-	if(idx<=255){
+
+        //applies use of the ColorMap class which will provide us with a color map almost identical to the one used by matlab
+	    if(idx<=255){
             return colors.getColor(idx);
-	}else{
-	    return colors.getColor(255);
-	}
+	    }else{
+	        return colors.getColor(255);
+	    }
     }
     //defines an object Complex that represents a complex number of the format a+ib where a is the real term and b is imaginary
     static class Complex{
