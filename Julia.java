@@ -47,25 +47,34 @@ public class Julia{
     }
     //generates a buffered image for the julia set
     public static BufferedImage generateSetImage(double xmax, double xmin, double ymax, double ymin, double creal, double cimag){
-	BufferedImage  outImage = new BufferedImage( 512, 512, BufferedImage.TYPE_INT_RGB );//creates the BufferedImage
-	for(int i=0; i<512; i++){//loops through the x coordinates
-	    for(int j=0; j<512; j++){//loops through the y coordinates
+	BufferedImage  outImage = new BufferedImage( 1024, 1024, BufferedImage.TYPE_INT_RGB );//creates the BufferedImage
+	ColorMap colors = ColorMap.getJet(256);
+	for(int i=0; i<1024; i++){//loops through the x coordinates
+	    for(int j=0; j<1024; j++){//loops through the y coordinates
 		Complex c = new Complex(creal, cimag);//creates the c complex number
-		Complex z = new Complex(((xmin + i*(xmax-xmin)/512)), (ymin + j*(ymax-ymin)/512));//creates the z complex number (varies with the x and y coordinates
+		Complex z = new Complex(((xmin + i*(xmax-xmin)/1024)), (ymin + j*(ymax-ymin)/1024));//creates the z complex number (varies with the x and y coordinates
 		int count = 0;//creates a counter for the number of iterations
 		while (Complex.magnitude(z)<2){//iterates the julia set quadratic function
 		    z = Complex.add(Complex.squared(z), c);//the function itself
 		    count++;
 		}
-		outImage.setRGB(i, j, getHSBColor(count));//sets the rgb color value for that pixel based upon the number of iterations
+		outImage.setRGB(i, j, getHSBColor(count, colors));//sets the rgb color value for that pixel based upon the number of iterations
 	    }
 	}
 	return outImage;//returns the buffered image
     }
     //hsb color output
-    public static int getHSBColor(int idx)
+    public static int getHSBColor(int idx, ColorMap colors)
     {
-        return Color.getHSBColor((float)(idx/255.0), 1.0f, 1.0f).getRGB();//gets a TYPE_INT_RGB value from the number of iterations
+        //return Color.getHSBColor((float)(idx%256/256.0), 1.0f, 1.0f).getRGB();//gets a TYPE_INT_RGB value from the number of iterations
+        //double value = (double)(idx/256.0);
+	//double rgb = colors.getColor(value);
+	//return rgb.getRGB();
+	if(idx<=255){
+            return colors.getColor(idx);
+	}else{
+	    return colors.getColor(255);
+	}
     }
     //defines an object Complex that represents a complex number of the format a+ib where a is the real term and b is imaginary
     static class Complex{
