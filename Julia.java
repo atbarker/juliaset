@@ -47,12 +47,12 @@ public class Julia{
     }
     //generates a buffered image for the julia set
     public static BufferedImage generateSetImage(double xmax, double xmin, double ymax, double ymin, double creal, double cimag){
-	BufferedImage  outImage = new BufferedImage( 1024, 1024, BufferedImage.TYPE_INT_RGB );//creates the BufferedImage
+	BufferedImage  outImage = new BufferedImage( 2048, 2048, BufferedImage.TYPE_INT_RGB );//creates the BufferedImage
 	ColorMap colors = ColorMap.getJet(256);
-	for(int i=0; i<1024; i++){//loops through the x coordinates
-	    for(int j=0; j<1024; j++){//loops through the y coordinates
+	for(int i=0; i<2048; i++){//loops through the x coordinates
+	    for(int j=0; j<2048; j++){//loops through the y coordinates
 		Complex c = new Complex(creal, cimag);//creates the c complex number
-		Complex z = new Complex(((xmin + i*(xmax-xmin)/1024)), (ymin + j*(ymax-ymin)/1024));//creates the z complex number (varies with the x and y coordinates
+		Complex z = new Complex(((xmin + i*(xmax-xmin)/2048)), (ymin + j*(ymax-ymin)/2048));//creates the z complex number (varies with the x and y coordinates
 		int count = 0;//creates a counter for the number of iterations
 		while (Complex.magnitude(z)<2){//iterates the julia set quadratic function
 		    z = Complex.add(Complex.squared(z), c);//the function itself
